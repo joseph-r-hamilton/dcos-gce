@@ -79,6 +79,11 @@
     - name: waiting for host to come back online
       local_action: wait_for host={{ inventory_hostname }} search_regex=OpenSSH port=22 timeout=300 state=started
 
+    - name: reestablish connection
+      wait_for_connection:
+        delay: 10
+        timeout: 60
+
     - name: Add docker repository
       yum_repository:
         name: dockerrepo
